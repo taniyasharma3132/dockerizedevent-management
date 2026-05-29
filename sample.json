@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Tech Innovation Summit 2026",
+    "date": "2026-08-15",
+    "location": "Bangalore, India",
+    "category": "tech",
+    "capacity": 300,
+    "price": 1500,
+    "imageUrl": "https://i.pinimg.com/736x/76/10/f9/7610f97d7bd6821152690bbd2677a7c6.jpg"
+  },
+  {
+    "title": "Startup Networking Meetup",
+    "date": "2026-09-10",
+    "location": "Mumbai, India",
+    "category": "business",
+    "capacity": 120,
+    "price": 800,
+    "imageUrl": "https://i.pinimg.com/736x/97/d4/13/97d41366454e1a05127b2e82ec7ddf93.jpg"
+  },
+  {
+    "title": "AI & Robotics Expo",
+    "date": "2026-10-05",
+    "location": "Hyderabad, India",
+    "category": "tech",
+    "capacity": 500,
+    "price": 2500,
+    "imageUrl": "https://i.pinimg.com/736x/fc/0e/45/fc0e4577badb7df5e801342af31c8b44.jpg"
+  },
+  {
+    "title": "Music Fiesta 2026",
+    "date": "2026-11-20",
+    "location": "Goa, India",
+    "category": "music",
+    "capacity": 1000,
+    "price": 3500,
+    "imageUrl": "https://i1-c.pinimg.com/1200x/a4/fc/37/a4fc379142e68b292b335546735ce764.jpg"
+  },
+  {
+    "title": "National Food Carnival",
+    "date": "2026-12-12",
+    "location": "Delhi, India",
+    "category": "food",
+    "capacity": 400,
+    "price": 600,
+    "imageUrl": "https://i1-c.pinimg.com/1200x/80/37/3b/80373b73df6a6e04cfc361b2cb4cc100.jpg"
+  }
+]

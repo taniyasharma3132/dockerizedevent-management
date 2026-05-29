@@ -1,0 +1,30 @@
+---
+- name: Deploy Event Management System
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Ensure Docker Compose is installed
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Copy docker-compose.yml to server
+      copy:
+        src: ./docker-compose.yml
+        dest: /opt/event-system/docker-compose.yml
+
+    - name: Pull latest images
+      command: docker-compose pull
+      args:
+        chdir: /opt/event-system/
+
+    - name: Restart containers
+      command: docker-compose up -d
+      args:
+        chdir: /opt/event-system/
