@@ -27,6 +27,8 @@ router.get('/', async (req, res) => {
 });
 
 // Get single event
+
+
 router.get('/:id', async (req, res) => {
     try {
         const event = await Event.findById(req.params.id);
@@ -82,3 +84,13 @@ router.delete('/:id', auth, async (req, res) => {
 });
 
 module.exports = router;
+
+
+// router.get('/test', async (req, res) => {
+//     try {
+//         const count = await Event.countDocuments();
+//         res.json({ count });
+//     } catch (err) {
+//         res.json(err);
+//     }
+// });
