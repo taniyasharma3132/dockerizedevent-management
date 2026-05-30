@@ -1,7 +1,7 @@
 # Event Management System
 
 ## Project Description
-This is a full-stack Event Management System developed using React, Node.js, Express, MongoDB, Docker, Jenkins, and Ansible.
+This is a full-stack Event Management System developed using React, Node.js, Express, MongoDB, Docker, and Jenkins.
 
 The project allows users to:
 - Register and Login
@@ -29,7 +29,7 @@ The project allows users to:
 - Docker
 - Docker Compose
 - Jenkins
-- Ansible
+- GitHub Actions
 
 ---
 
@@ -39,8 +39,7 @@ backend/
 frontend/
 docker-compose.yml
 Jenkinsfile
-deploy.yml
-inventory.ini
+.github/workflows/ci-cd.yml
 
 ---
 
@@ -51,8 +50,7 @@ inventory.ini
 - Admin Dashboard
 - REST API Integration
 - Dockerized Application
-- CI/CD Pipeline using Jenkins
-- Automated Deployment using Ansible
+- CI/CD Pipeline using Jenkins and GitHub Actions
 
 ---
 
