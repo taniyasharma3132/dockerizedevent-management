@@ -37,15 +37,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy with Ansible') {
-            steps {
-                ansiblePlaybook(
-                    playbook: 'deploy.yml',
-                    inventory: 'inventory.ini',
-                    credentialsId: 'ssh-credentials'
-                )
-            }
-        }
     }
 }
