@@ -20,6 +20,36 @@ services:
     depends_on:
       - mongodb
 
+  auth-service:
+    build: ./auth-service
+    container_name: auth_service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - JWT_SECRET=auth-secret-key
+
+  event-service:
+    build: ./event-service
+    container_name: event_service
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - MONGO_URI=mongodb://mongodb:27017/eventsdb
+
+  booking-service:
+    build: ./booking-service
+    container_name: booking_service
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - EVENT_SERVICE_URL=http://event-service:3002
+      - MONGO_URI=mongodb://mongodb:27017/eventsdb
+    depends_on:
+      - event-service
+
   frontend:
     build: ./frontend
     container_name: event_frontend
