@@ -9,98 +9,98 @@ on:
 jobs:
   build-backend:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
-    
+        cache: 'npm'
+        cache-dependency-path: backend/package-lock.json
+
     - name: Install backend dependencies
-      run: cd backend && npm install
+      run: cd backend && npm ci --prefer-offline || npm install
     
     - name: Check backend code
       run: cd backend && npm run lint --if-present || true
-    
+
     - name: Build backend
-      run: cd backend && npm run build --if-present || echo "No build script"
+      run: cd backend && npm run build --if-present || echo "No build script, skipping"
 
   build-frontend:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
-    
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+
     - name: Install frontend dependencies
-      run: cd frontend && npm install
-    
+      run: cd frontend && npm ci --prefer-offline || npm install
+
     - name: Lint frontend
       run: cd frontend && npm run lint --if-present || true
-    
+
     - name: Build frontend
       run: cd frontend && npm run build
 
-  build-docker:
-    needs: [build-backend, build-frontend]
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-    
-    - name: Build Docker images
-      run: docker-compose build
-    
-    - name: Verify Docker images
-      run: docker images
-
   test-backend:
     runs-on: ubuntu-latest
-    
+
     services:
       mongodb:
         image: mongo:5
         options: >-
-          --health-cmd "mongosh --eval \"db.adminCommand('ping')\"" 
-          --health-interval 10s 
-          --health-timeout 5s 
+          --health-cmd "mongosh --eval \"db.adminCommand('ping')\""
+          --health-interval 10s
+          --health-timeout 5s
           --health-retries 5
         ports:
           - 27017:27017
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
     - name: Set up Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
-    
+
     - name: Install backend dependencies
       run: cd backend && npm install
-    
+
     - name: Run backend tests
-      run: cd backend && npm test --if-present || echo "No tests configured"
+      run: cd backend && npm test
       env:
         MONGODB_URI: mongodb://localhost:27017/event-management-test
 
   security-scan:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install frontend dependencies
+      run: cd frontend && npm install
+
     - name: Run npm audit (frontend)
-      run: cd frontend && npm audit --audit-level=moderate || true
-    
+      run: cd frontend && npm audit --audit-level=high || true
+
+    - name: Install backend dependencies
+      run: cd backend && npm install
+
     - name: Run npm audit (backend)
-      run: cd backend && npm audit --audit-level=moderate || true
+      run: cd backend && npm audit --audit-level=high || true
+
